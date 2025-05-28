@@ -3,28 +3,28 @@ package module
 import (
 	"strings"
 
-	"github.com/dop251/goja"
-	operation "github.com/goharbor/xk6-harbor/pkg/harbor/client/project"
-	"github.com/goharbor/xk6-harbor/pkg/harbor/client/repository"
-	"github.com/goharbor/xk6-harbor/pkg/harbor/models"
-	"github.com/goharbor/xk6-harbor/pkg/util"
+	operation "github.com/prmuthu/xk6-harbor/pkg/harbor/client/project"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/client/repository"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/models"
+	"github.com/prmuthu/xk6-harbor/pkg/util"
 	log "github.com/sirupsen/logrus"
 	"go.k6.io/k6/js/common"
+	"github.com/grafana/sobek"
 )
 
-func (h *Harbor) CreateProject(body goja.Value) string {
+func (h *Harbor) CreateProject(body sobek.Value) string {
 	h.mustInitialized()
 
 	rt := h.vu.Runtime()
 	var project models.ProjectReq
 	err := rt.ExportTo(body, &project)
-	Check(h.vu.Runtime(), err)
+	Check(rt, err)
 
 	params := operation.NewCreateProjectParams()
 	params.WithProject(&project).WithXResourceNameInLocation(&varTrue)
 
 	res, err := h.api.Project.CreateProject(h.vu.Context(), params)
-	Checkf(h.vu.Runtime(), err, "failed to create project %s", params.Project.ProjectName)
+	Checkf(rt, err, "failed to create project %s", params.Project.ProjectName)
 
 	return NameFromLocation(res.Location)
 }
@@ -41,12 +41,14 @@ func (h *Harbor) GetProject(projectName string) *models.Project {
 	return res.Payload
 }
 
-func (h *Harbor) DeleteProject(projectName string, args ...goja.Value) {
+func (h *Harbor) DeleteProject(projectName string, args ...sobek.Value) {
 	h.mustInitialized()
 
 	var force bool
 	if len(args) > 0 {
-		force = args[0].ToBoolean()
+		if b, ok := args[0].Export().(bool); ok {
+			force = b
+		}
 	}
 
 	if force {
@@ -92,9 +94,7 @@ func (h *Harbor) DeleteAllProjects(excludeProjects []string) {
 	pageSize := 10
 	for {
 		arg := map[string]interface{}{"page": page, "page_size": pageSize}
-
 		result := h.ListProjects(rt.ToValue(arg))
-
 		projects := result.Projects
 
 		deleted := 0
@@ -130,7 +130,7 @@ type ListProjectsResult struct {
 	Total    int64             `js:"total"`
 }
 
-func (h *Harbor) ListProjects(args ...goja.Value) ListProjectsResult {
+func (h *Harbor) ListProjects(args ...sobek.Value) ListProjectsResult {
 	h.mustInitialized()
 
 	params := operation.NewListProjectsParams()
@@ -156,7 +156,7 @@ type ListAuditLogsOfProjectResult struct {
 	Total int64              `js:"total"`
 }
 
-func (h *Harbor) ListAuditLogsOfProject(projectName string, args ...goja.Value) ListAuditLogsOfProjectResult {
+func (h *Harbor) ListAuditLogsOfProject(projectName string, args ...sobek.Value) ListAuditLogsOfProjectResult {
 	h.mustInitialized()
 
 	params := operation.NewGetLogsParams().WithProjectName(projectName)

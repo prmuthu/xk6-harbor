@@ -1,8 +1,8 @@
 package module
 
 import (
-	operation "github.com/goharbor/xk6-harbor/pkg/harbor/client/robot"
-	"github.com/goharbor/xk6-harbor/pkg/harbor/models"
+	operation "github.com/prmuthu/xk6-harbor/pkg/harbor/client/robot"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/models"
 )
 
 func (h *Harbor) CreateRobot(robot models.RobotCreate) int64 {

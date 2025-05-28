@@ -6,27 +6,27 @@ import (
 	"sync"
 
 	"github.com/containerd/containerd/content"
-	"github.com/dop251/goja"
 	"github.com/dustin/go-humanize"
-	"github.com/goharbor/xk6-harbor/pkg/util"
+	"github.com/prmuthu/xk6-harbor/pkg/util"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	ants "github.com/panjf2000/ants/v2"
+	"github.com/grafana/sobek"
 )
 
-func newContentStore(rt *goja.Runtime, name string) *ContentStore {
+func newContentStore(rt *sobek.Runtime, name string) *ContentStore {
 	rootPath, store := newLocalStore(rt, name)
-
 	return &ContentStore{Runtime: rt, Store: store, RootPath: rootPath}
 }
 
 type ContentStore struct {
-	Runtime  *goja.Runtime
+	Runtime  *sobek.Runtime
 	Store    content.Store
 	RootPath string
 }
 
-func (s *ContentStore) Generate(humanSize goja.Value) (*ocispec.Descriptor, error) {
-	size, err := humanize.ParseBytes(humanSize.String())
+func (s *ContentStore) Generate(humanSize sobek.Value) (*ocispec.Descriptor, error) {
+	sizeStr := humanSize.String()
+	size, err := humanize.ParseBytes(sizeStr)
 	if err != nil {
 		return nil, err
 	}
@@ -51,17 +51,17 @@ func (s *ContentStore) Generate(humanSize goja.Value) (*ocispec.Descriptor, erro
 	}, nil
 }
 
-func (s *ContentStore) GenerateMany(humanSize goja.Value, count int) ([]*ocispec.Descriptor, error) {
-	size, err := humanize.ParseBytes(humanSize.String())
+func (s *ContentStore) GenerateMany(humanSize sobek.Value, count int) ([]*ocispec.Descriptor, error) {
+	sizeStr := humanSize.String()
+	size, err := humanize.ParseBytes(sizeStr)
 	if err != nil {
 		return nil, err
 	}
 	if size == 0 {
-		return nil, errors.New("size must bigger than zero")
+		return nil, errors.New("size must be greater than zero")
 	}
-
 	if count <= 0 {
-		return nil, errors.New("count must bigger than zero")
+		return nil, errors.New("count must be greater than zero")
 	}
 
 	descriptors := make([]*ocispec.Descriptor, count)

@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/goharbor/xk6-harbor/pkg/harbor/models"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/models"
 )
 
 // UpdateRobotV1Reader is a Reader for the UpdateRobotV1 structure.

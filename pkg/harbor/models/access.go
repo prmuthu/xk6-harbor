@@ -23,7 +23,7 @@ type Access struct {
 	// The effect of the access
 	Effect string `json:"effect,omitempty" js:"effect"`
 
-	// The resource of the access. Possible resources are listed here for system and project level https://github.com/goharbor/harbor/blob/main/src/common/rbac/const.go
+	// The resource of the access. Possible resources are listed here for system and project level https://github.com/prmuthu/harbor/blob/main/src/common/rbac/const.go
 	Resource string `json:"resource,omitempty" js:"resource"`
 }
 

@@ -1,4 +1,4 @@
-IMG ?= goharbor/k6
+IMG ?= prmuthu/k6
 
 GOLANG=golang:1.20.6
 

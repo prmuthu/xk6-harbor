@@ -1,8 +1,8 @@
 package module
 
 import (
-	operation "github.com/goharbor/xk6-harbor/pkg/harbor/client/scanner"
-	"github.com/goharbor/xk6-harbor/pkg/harbor/models"
+	operation "github.com/prmuthu/xk6-harbor/pkg/harbor/client/scanner"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/models"
 )
 
 func (h *Harbor) CreateScanner(registration models.ScannerRegistrationReq) string {

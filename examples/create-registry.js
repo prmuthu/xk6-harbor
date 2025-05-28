@@ -51,7 +51,7 @@ export default function ({ now }) {
 
     const params = {
         name: `harbor-${now}-${i}`,
-        url: getEnv('HARBOR_REGISTRY_URL', 'https://demo.goharbor.io'),
+        url: getEnv('HARBOR_REGISTRY_URL', 'https://demo.prmuthu.io'),
         type: 'harbor',
         credential: {
             accessKey: getEnv('HARBOR_REGISTRY_USERNAME', 'admin'),

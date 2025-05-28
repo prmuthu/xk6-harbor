@@ -16,7 +16,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/goharbor/xk6-harbor/pkg/harbor/models"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/models"
 )
 
 // NewUpdateRobotV1Params creates a new UpdateRobotV1Params object,

@@ -1,5 +1,5 @@
 package harbor
 
 import (
-	_ "github.com/goharbor/xk6-harbor/pkg/module"
+	_ "github.com/prmuthu/xk6-harbor/pkg/module"
 )

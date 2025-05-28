@@ -10,12 +10,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/dop251/goja"
 	rtclient "github.com/go-openapi/runtime/client"
-	"github.com/goharbor/xk6-harbor/pkg/harbor/client"
-	"github.com/goharbor/xk6-harbor/pkg/util"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/client"
+	"github.com/prmuthu/xk6-harbor/pkg/util"
 	"go.k6.io/k6/js/common"
 	"go.k6.io/k6/js/modules"
+	"github.com/grafana/sobek"
 )
 
 var DefaultRootPath = filepath.Join(os.TempDir(), "harbor")
@@ -85,7 +85,7 @@ func (m *Module) Exports() modules.Exports {
 	}
 }
 
-func (m *Module) newHarbor(c goja.ConstructorCall) *goja.Object {
+func (m *Module) newHarbor(c sobek.ConstructorCall) *sobek.Object {
 	rt := m.vu.Runtime()
 
 	if len(c.Arguments) > 0 {
@@ -95,15 +95,15 @@ func (m *Module) newHarbor(c goja.ConstructorCall) *goja.Object {
 	return rt.ToValue(m.Harbor).ToObject(rt)
 }
 
-func (m *Module) newContentStore(c goja.ConstructorCall) *goja.Object {
+func (m *Module) newContentStore(c sobek.ConstructorCall) *sobek.Object {
 	rt := m.vu.Runtime()
 
-	store := newContentStore(m.vu.Runtime(), c.Arguments[0].String())
+	store := newContentStore(rt, c.Arguments[0].String())
 
 	return rt.ToValue(store).ToObject(rt)
 }
 
-func (h *Harbor) Initialize(c goja.ConstructorCall) {
+func (h *Harbor) Initialize(c sobek.ConstructorCall) {
 	if h.initialized {
 		common.Throw(h.vu.Runtime(), errors.New("harbor module initialized"))
 	}
@@ -118,11 +118,11 @@ func (h *Harbor) Initialize(c goja.ConstructorCall) {
 		}
 
 		if len(c.Arguments) > 0 {
-			if c.Arguments[0] != nil && !goja.IsUndefined(c.Arguments[0]) && !goja.IsNull(c.Arguments[0]) {
+			// if c.Arguments[0] != nil && !c.Arguments[0].IsUndefined() && !c.Arguments[0].IsNull() {
+			if c.Arguments[0] != nil && c.Arguments[0].Export() != nil {
 				rt := h.vu.Runtime()
-
 				err := rt.ExportTo(c.Arguments[0], opt)
-				Checkf(h.vu.Runtime(), err, "failed to parse the option")
+				Checkf(rt, err, "failed to parse the option")
 			}
 		}
 
