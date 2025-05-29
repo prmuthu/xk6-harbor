@@ -11,7 +11,7 @@ require (
 	github.com/go-openapi/strfmt v0.21.7
 	github.com/go-openapi/swag v0.22.4
 	github.com/go-openapi/validate v0.22.1
-	github.com/prmuthu/xk6-harbor v0.0.0-20240513064203-8db688c2ad10
+	github.com/prmuthu/xk6-harbor v0.0.1
 	github.com/google/uuid v1.6.0
 	github.com/grafana/sobek v0.0.0-20250512150554-7b933fc8a3e0
 	github.com/grafana/xk6-output-prometheus-remote v0.5.1
