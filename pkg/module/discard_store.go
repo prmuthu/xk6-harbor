@@ -7,18 +7,18 @@ import (
 
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/errdefs"
-	orascontent "github.com/deislabs/oras/pkg/content"
 	"github.com/opencontainers/go-digest"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
+	"oras.land/oras-go/v2/content/memory"
 )
 
 func newDiscardStore() *discardstore {
-	return &discardstore{Memorystore: orascontent.NewMemoryStore()}
+	return &discardstore{Store: memory.New()}
 }
 
 type discardstore struct {
-	*orascontent.Memorystore
+	*memory.Store
 }
 
 func (ds *discardstore) Writer(ctx context.Context, opts ...content.WriterOpt) (content.Writer, error) {
@@ -30,10 +30,10 @@ func (ds *discardstore) Writer(ctx context.Context, opts ...content.WriterOpt) (
 	}
 	desc := wOpts.Desc
 
-	name, _ := orascontent.ResolveName(desc)
+	name := "unknown" // ResolveName equivalent not found in oras-go/v2
 	now := time.Now()
 	return &discardMemoryWriter{
-		store:    ds.Memorystore,
+		store:    ds.Store,
 		buffer:   bytes.NewBuffer(nil),
 		desc:     desc,
 		digester: digest.Canonical.Digester(),
@@ -47,7 +47,7 @@ func (ds *discardstore) Writer(ctx context.Context, opts ...content.WriterOpt) (
 }
 
 type discardMemoryWriter struct {
-	store    *orascontent.Memorystore
+	store    *memory.Store
 	buffer   *bytes.Buffer
 	size     int64
 	desc     ocispec.Descriptor
@@ -114,7 +114,8 @@ func (w *discardMemoryWriter) Commit(ctx context.Context, size int64, expected d
 	}
 
 	if w.buffer.Len() > 0 {
-		w.store.Set(w.desc, w.buffer.Bytes())
+		reader := bytes.NewReader(w.buffer.Bytes())
+		w.store.Push(ctx, w.desc, reader)
 		w.buffer = nil
 	}
 
