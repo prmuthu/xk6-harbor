@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/containerd/containerd v1.3.2
-	github.com/deislabs/oras v0.8.1
+	github.com/deislabs/oras v0.7.0
 	github.com/dustin/go-humanize v1.0.0
 	github.com/go-openapi/errors v0.20.4
 	github.com/go-openapi/runtime v0.26.0
