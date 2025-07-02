@@ -3,8 +3,7 @@ module github.com/prmuthu/xk6-harbor
 go 1.23.0
 
 require (
-	github.com/containerd/containerd v1.3.2
-	github.com/deislabs/oras v0.7.0
+	github.com/deislabs/oras v0.8.1
 	github.com/dustin/go-humanize v1.0.0
 	github.com/go-openapi/errors v0.20.4
 	github.com/go-openapi/runtime v0.26.0
@@ -24,7 +23,7 @@ require (
 	github.com/spf13/cast v1.4.0
 	go.k6.io/k6 v0.57.0
 )
-
+replace github.com/containerd/containerd => github.com/containerd/containerd v1.3.2
 require (
 	buf.build/gen/go/gogo/protobuf/protocolbuffers/go v1.31.0-20210810001428-4df00b267f94.1 // indirect
 	buf.build/gen/go/prometheus/prometheus/protocolbuffers/go v1.31.0-20230627135113-9a12bc2590d2.1 // indirect
