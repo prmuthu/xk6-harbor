@@ -15,7 +15,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/goharbor/xk6-harbor/pkg/harbor/models"
+	"github.com/prmuthu/xk6-harbor/pkg/harbor/models"
 )
 
 // NewAddLabelParams creates a new AddLabelParams object,

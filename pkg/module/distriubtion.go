@@ -11,11 +11,11 @@ import (
 	"github.com/containerd/containerd/remotes/docker"
 	orascontent "github.com/deislabs/oras/pkg/content"
 	"github.com/deislabs/oras/pkg/oras"
-	"github.com/grafana/sobek"
-	"github.com/prmuthu/xk6-harbor/pkg/util"
 	"github.com/google/uuid"
+	"github.com/grafana/sobek"
 	"github.com/opencontainers/go-digest"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
+	"github.com/prmuthu/xk6-harbor/pkg/util"
 	log "github.com/sirupsen/logrus"
 	"go.k6.io/k6/js/common"
 )
