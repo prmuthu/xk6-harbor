@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/containerd/containerd v1.5.7
-	github.com/deislabs/oras v0.7.0
+	github.com/deislabs/oras v0.5.0
 	github.com/dustin/go-humanize v1.0.1
 	github.com/go-openapi/errors v0.20.4
 	github.com/go-openapi/runtime v0.26.0
@@ -26,7 +26,7 @@ require (
 
 replace github.com/containerd/containerd => github.com/containerd/containerd v1.4.13
 
-replace github.com/deislabs/oras => github.com/deislabs/oras v0.7.0
+replace github.com/deislabs/oras => github.com/deislabs/oras v0.5.0
 
 replace github.com/docker/docker => github.com/docker/docker v24.0.7+incompatible
 
