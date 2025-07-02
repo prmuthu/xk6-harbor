@@ -3,6 +3,7 @@ module github.com/prmuthu/xk6-harbor
 go 1.23.0
 
 require (
+	github.com/containerd/containerd v1.3.2
 	github.com/deislabs/oras v0.8.1
 	github.com/dustin/go-humanize v1.0.0
 	github.com/go-openapi/errors v0.20.4
@@ -10,7 +11,7 @@ require (
 	github.com/go-openapi/strfmt v0.21.7
 	github.com/go-openapi/swag v0.22.4
 	github.com/go-openapi/validate v0.22.1
-	github.com/prmuthu/xk6-harbor v0.0.1
+	github.com/goharbor/xk6-harbor v0.0.0-20240513064203-8db688c2ad10
 	github.com/google/uuid v1.6.0
 	github.com/grafana/sobek v0.0.0-20250512150554-7b933fc8a3e0
 	github.com/grafana/xk6-output-prometheus-remote v0.5.1
@@ -23,7 +24,11 @@ require (
 	github.com/spf13/cast v1.4.0
 	go.k6.io/k6 v0.57.0
 )
+
 replace github.com/containerd/containerd => github.com/containerd/containerd v1.3.2
+replace github.com/deislabs/oras v0.7.0 => github.com/deislabs/oras v0.8.1
+
+
 require (
 	buf.build/gen/go/gogo/protobuf/protocolbuffers/go v1.31.0-20210810001428-4df00b267f94.1 // indirect
 	buf.build/gen/go/prometheus/prometheus/protocolbuffers/go v1.31.0-20230627135113-9a12bc2590d2.1 // indirect
@@ -45,7 +50,6 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
-	github.com/dop251/goja v0.0.0-20240516125602-ccbae20bcec2 // indirect
 	github.com/evanw/esbuild v0.24.2 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
